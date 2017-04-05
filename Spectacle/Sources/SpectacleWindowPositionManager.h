@@ -6,6 +6,7 @@
 typedef void (^SpectacleFailureFeedback)(void);
 
 @class SpectacleAccessibilityElement;
+@class SpectacleMarginManager;
 @class SpectacleScreenDetector;
 @class SpectacleShortcut;
 @class SpectacleWindowPositionCalculator;
@@ -17,12 +18,15 @@ typedef void (^SpectacleFailureFeedback)(void);
 - (instancetype)initWithScreenDetector:(SpectacleScreenDetector *)screenDetector
               windowPositionCalculator:(SpectacleWindowPositionCalculator *)windowPositionCalculator
                        sharedWorkspace:(NSWorkspace *)sharedWorkspace
+                         marginManager:(SpectacleMarginManager *)marginManager
                        failureFeedback:(SpectacleFailureFeedback)failureFeedback
                            windowMover:(id<SpectacleWindowMover>)windowMover NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithScreenDetector:(SpectacleScreenDetector *)screenDetector
               windowPositionCalculator:(SpectacleWindowPositionCalculator *)windowPositionCalculator
-                       sharedWorkspace:(NSWorkspace *)sharedWorkspace;
+                       sharedWorkspace:(NSWorkspace *)sharedWorkspace
+                         marginManager:(SpectacleMarginManager *)marginManager;
+
 
 SPECTACLE_INIT_AND_NEW_UNAVAILABLE
 

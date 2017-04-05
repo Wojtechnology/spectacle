@@ -3,7 +3,10 @@
 #import <Sparkle/Sparkle.h>
 
 #import "SpectacleAccessibilityElement.h"
+#import "SpectacleDefaultMarginHelpers.h"
 #import "SpectacleDefaultShortcutHelpers.h"
+#import "SpectacleMarginJSONStorage.h"
+#import "SpectacleMarginManager.h"
 #import "SpectacleMigratingShortcutStorage.h"
 #import "SpectaclePreferencesController.h"
 #import "SpectacleScreenDetector.h"
@@ -21,6 +24,8 @@
   NSStatusItem *_statusItem;
   id<SpectacleShortcutStorage> _shortcutStorage;
   SpectacleShortcutManager *_shortcutManager;
+  id<SpectacleMarginStorage> _marginStorage;
+  SpectacleMarginManager *_marginManager;
   SpectacleWindowPositionManager *_windowPositionManager;
   SpectaclePreferencesController *_preferencesController;
   NSTimer *_disableShortcutsForAnHourTimer;
@@ -89,6 +94,8 @@
   NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
   _blacklistedApplications = [NSSet setWithArray:[userDefaults objectForKey:@"BlacklistedApplications"]];
   _disabledApplications = [NSMutableSet setWithArray:[userDefaults objectForKey:@"DisabledApplications"]];
+  _marginStorage = [SpectacleMarginJSONStorage new];
+  _marginManager = [[SpectacleMarginManager alloc] initWithMarginStorage:_marginStorage];
   _shortcutStorage = [[SpectacleMigratingShortcutStorage alloc] initWithShortcutStorage:[SpectacleShortcutUserDefaultsStorage new]
                                                                    migrationDestination:[SpectacleShortcutJSONStorage new]];
   _shortcutManager = [[SpectacleShortcutManager alloc] initWithShortcutStorage:_shortcutStorage];
@@ -101,11 +108,13 @@
   }];
   _windowPositionManager = [[SpectacleWindowPositionManager alloc] initWithScreenDetector:[SpectacleScreenDetector new]
                                                                  windowPositionCalculator:windowPositionCalculator
-                                                                          sharedWorkspace:[NSWorkspace sharedWorkspace]];
+                                                                          sharedWorkspace:[NSWorkspace sharedWorkspace]
+                                                                            marginManager:_marginManager];
   _preferencesController = [[SpectaclePreferencesController alloc] initWithShortcutManager:_shortcutManager
                                                                      windowPositionManager:_windowPositionManager
                                                                            shortcutStorage:_shortcutStorage];
   _shortcutsAreDisabledForAnHour = NO;
+  [self manageMargins];
   [self manageShortcuts];
   [self disableShortcutsIfFrontmostApplicationIsBlacklistedOrDisabled];
   BOOL automaticallyChecksForUpdates = [userDefaults boolForKey:@"AutomaticUpdateCheckEnabled"];
@@ -289,6 +298,16 @@
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)manageMargins
+{
+  NSArray<SpectacleMargin *> *margins = [_marginStorage loadMargins];
+  if (margins.count != 0) {
+    [_marginManager manageMargins:margins];
+  } else {
+    [_marginManager manageMargins:SpectacleDefaultMargins()];
+  }
 }
 
 - (void)manageShortcuts

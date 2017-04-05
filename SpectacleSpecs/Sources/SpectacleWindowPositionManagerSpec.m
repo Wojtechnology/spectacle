@@ -4,6 +4,7 @@
 #import <Specta/Specta.h>
 
 #import "SpectacleAccessibilityElement.h"
+#import "SpectacleMarginManager.h"
 #import "SpectacleScreenDetectionResult.h"
 #import "SpectacleScreenDetector.h"
 #import "SpectacleWindowPositionCalculationResult.h"
@@ -20,6 +21,8 @@ describe(@"SpectacleWindowPositionManager", ^{
   __block SpectacleScreenDetector *mockScreenDetector;
   __block SpectacleWindowPositionCalculator *mockWindowPositionCalculator;
   __block NSWorkspace *mockSharedWorkspace;
+  // TODO: Test margin manager
+  __block SpectacleMarginManager *mockMarginManager;
   __block NSRunningApplication *mockFrontmostApplication;
   __block SpectacleWindowPositionManager *windowPositionManager;
   __block SpectacleWindowPositionCalculationResult *mockWindowPositionCalculationResult;
@@ -77,6 +80,7 @@ describe(@"SpectacleWindowPositionManager", ^{
     windowPositionManager = [[SpectacleWindowPositionManager alloc] initWithScreenDetector:mockScreenDetector
                                                                   windowPositionCalculator:mockWindowPositionCalculator
                                                                            sharedWorkspace:mockSharedWorkspace
+                                                                             marginManager:mockMarginManager
                                                                            failureFeedback:^() {}
                                                                                windowMover:nil];
   });

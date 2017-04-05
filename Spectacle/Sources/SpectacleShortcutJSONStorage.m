@@ -1,5 +1,7 @@
 #import "SpectacleShortcutJSONStorage.h"
 
+#import "SpectacleUtilities.h"
+
 @implementation SpectacleShortcutJSONStorage
 
 - (NSArray<SpectacleShortcut *> *)loadShortcutsWithAction:(SpectacleShortcutAction)action
@@ -50,29 +52,8 @@
 
 static NSURL *findShortcutsFileURL(NSError **error)
 {
-  NSURL *shortcutsFileURL = [findOrCreateSpectacleDirectory(error) URLByAppendingPathComponent:@"Shortcuts.json"];
+  NSURL *shortcutsFileURL = [[SpectacleUtilities findOrCreateSpectacleDirectory:error] URLByAppendingPathComponent:@"Shortcuts.json"];
   return shortcutsFileURL.URLByResolvingSymlinksInPath;
-}
-
-static NSURL *findOrCreateSpectacleDirectory(NSError **error)
-{
-  NSURL *applicationSupportDirectory = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory
-                                                                              inDomain:NSUserDomainMask
-                                                                     appropriateForURL:nil
-                                                                                create:YES
-                                                                                 error:error];
-  if (!applicationSupportDirectory) {
-    return nil;
-  }
-  NSURL *spectacleDirectory = [applicationSupportDirectory URLByAppendingPathComponent:@"Spectacle"];
-  BOOL success = [[NSFileManager defaultManager] createDirectoryAtURL:spectacleDirectory
-                                          withIntermediateDirectories:YES
-                                                           attributes:nil
-                                                                error:error];
-  if (!success) {
-    return nil;
-  }
-  return spectacleDirectory;
 }
 
 static NSArray<NSDictionary *> *jsonObjectFromShortcuts(NSArray<SpectacleShortcut *> *shortcuts)

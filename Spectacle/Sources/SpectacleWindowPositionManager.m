@@ -4,6 +4,7 @@
 #import "SpectacleBestEffortWindowMover.h"
 #import "SpectacleHistory.h"
 #import "SpectacleHistoryItem.h"
+#import "SpectacleMarginManager.h"
 #import "SpectacleQuantizedWindowMover.h"
 #import "SpectacleScreenDetectionResult.h"
 #import "SpectacleScreenDetector.h"
@@ -18,6 +19,7 @@
   SpectacleScreenDetector *_screenDetector;
   SpectacleWindowPositionCalculator *_windowPositionCalculator;
   NSWorkspace *_sharedWorkspace;
+  SpectacleMarginManager *_marginManager;
   SpectacleFailureFeedback _failureFeedback;
   id<SpectacleWindowMover> _windowMover;
 }
@@ -25,6 +27,7 @@
 - (instancetype)initWithScreenDetector:(SpectacleScreenDetector *)screenDetector
               windowPositionCalculator:(SpectacleWindowPositionCalculator *)windowPositionCalculator
                        sharedWorkspace:(NSWorkspace *)sharedWorkspace
+                         marginManager:(SpectacleMarginManager *)marginManager
                        failureFeedback:(SpectacleFailureFeedback)failureFeedback
                            windowMover:(id<SpectacleWindowMover>)windowMover
 {
@@ -33,6 +36,7 @@
     _screenDetector = screenDetector;
     _windowPositionCalculator = windowPositionCalculator;
     _sharedWorkspace = sharedWorkspace;
+    _marginManager = marginManager;
     _failureFeedback = failureFeedback;
     _windowMover = windowMover;
   }
@@ -42,10 +46,12 @@
 - (instancetype)initWithScreenDetector:(SpectacleScreenDetector *)screenDetector
               windowPositionCalculator:(SpectacleWindowPositionCalculator *)windowPositionCalculator
                        sharedWorkspace:(NSWorkspace *)sharedWorkspace
+                         marginManager:(SpectacleMarginManager *)marginManager
 {
   return [self initWithScreenDetector:screenDetector
              windowPositionCalculator:windowPositionCalculator
                       sharedWorkspace:sharedWorkspace
+                        marginManager:marginManager
                       failureFeedback:^() { NSBeep(); }
                           windowMover:[SpectacleStandardWindowMover newWithInnerWindowMover:
                                        [SpectacleQuantizedWindowMover newWithInnerWindowMover:
@@ -105,6 +111,8 @@
     _failureFeedback();
     return;
   }
+  frontmostWindowRect = [_marginManager enforceMarginsOfRect:frontmostWindowRect
+                                               frameOfScreen:frameOfDestinationScreen];
   frontmostWindowRect = [SpectacleAccessibilityElement normalizeCoordinatesOfRect:frontmostWindowRect
                                                                     frameOfScreen:frameOfDestinationScreen];
   historyItem = [SpectacleHistoryItem historyItemFromAccessibilityElement:frontmostWindowElement

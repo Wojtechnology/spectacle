@@ -82,4 +82,25 @@
   return preferencePanePath;
 }
 
++ (NSURL *)findOrCreateSpectacleDirectory:(NSError **)error
+{
+  NSURL *applicationSupportDirectory = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory
+                                                                              inDomain:NSUserDomainMask
+                                                                     appropriateForURL:nil
+                                                                                create:YES
+                                                                                 error:error];
+  if (!applicationSupportDirectory) {
+    return nil;
+  }
+  NSURL *spectacleDirectory = [applicationSupportDirectory URLByAppendingPathComponent:@"Spectacle"];
+  BOOL success = [[NSFileManager defaultManager] createDirectoryAtURL:spectacleDirectory
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:error];
+  if (!success) {
+    return nil;
+  }
+  return spectacleDirectory;
+}
+
 @end

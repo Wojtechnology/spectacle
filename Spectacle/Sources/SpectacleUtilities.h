@@ -11,4 +11,6 @@
 
 + (NSString *)pathForPreferencePaneNamed:(NSString *)preferencePaneName;
 
++ (NSURL *)findOrCreateSpectacleDirectory:(NSError **)error;
+
 @end

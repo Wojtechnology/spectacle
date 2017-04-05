@@ -77,6 +77,10 @@
 		2DC8A0171B85097900ABEBD5 /* SpectacleLoginItemHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC8A0161B85097900ABEBD5 /* SpectacleLoginItemHelper.m */; };
 		2DE03E481D7B8F5A004E80D6 /* SpectacleShortcutKeyBindingsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE03E471D7B8F5A004E80D6 /* SpectacleShortcutKeyBindingsSpec.m */; };
 		2DE03E4B1D7B98D6004E80D6 /* SpectacleShortcutKeyBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE03E4A1D7B98D6004E80D6 /* SpectacleShortcutKeyBindings.m */; };
+		DD0ABFC31E95ED6200B60210 /* SpectacleMarginJSONStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0ABFC21E95ED6200B60210 /* SpectacleMarginJSONStorage.m */; };
+		DD0ABFC61E95FDAA00B60210 /* SpectacleDefaultMarginHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0ABFC51E95FDAA00B60210 /* SpectacleDefaultMarginHelpers.m */; };
+		DD49A6921E959BCD00A10CFA /* SpectacleMargin.m in Sources */ = {isa = PBXBuildFile; fileRef = DD49A6911E959BCD00A10CFA /* SpectacleMargin.m */; };
+		DD49A6951E95A45500A10CFA /* SpectacleMarginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD49A6941E95A45500A10CFA /* SpectacleMarginManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +252,15 @@
 		574F6A1C1C57BE40001A5679 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = pt; path = Spectacle/Resources/Localizations/pt.lproj/Credits.rtf; sourceTree = "<group>"; };
 		574F6A1D1C57BE40001A5679 /* pt */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = pt; path = Spectacle/Resources/Localizations/pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		574F6A1E1C57BE40001A5679 /* pt */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = pt; path = Spectacle/Resources/Localizations/pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD0ABFC11E95ED4E00B60210 /* SpectacleMarginJSONStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpectacleMarginJSONStorage.h; path = Spectacle/Sources/SpectacleMarginJSONStorage.h; sourceTree = "<group>"; };
+		DD0ABFC21E95ED6200B60210 /* SpectacleMarginJSONStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpectacleMarginJSONStorage.m; path = Spectacle/Sources/SpectacleMarginJSONStorage.m; sourceTree = "<group>"; };
+		DD0ABFC41E95FD9300B60210 /* SpectacleDefaultMarginHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpectacleDefaultMarginHelpers.h; path = Spectacle/Sources/SpectacleDefaultMarginHelpers.h; sourceTree = "<group>"; };
+		DD0ABFC51E95FDAA00B60210 /* SpectacleDefaultMarginHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpectacleDefaultMarginHelpers.m; path = Spectacle/Sources/SpectacleDefaultMarginHelpers.m; sourceTree = "<group>"; };
+		DD49A68E1E9598C100A10CFA /* SpectacleMargin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpectacleMargin.h; path = Spectacle/Sources/SpectacleMargin.h; sourceTree = "<group>"; };
+		DD49A6911E959BCD00A10CFA /* SpectacleMargin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpectacleMargin.m; path = Spectacle/Sources/SpectacleMargin.m; sourceTree = "<group>"; };
+		DD49A6941E95A45500A10CFA /* SpectacleMarginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpectacleMarginManager.m; path = Spectacle/Sources/SpectacleMarginManager.m; sourceTree = "<group>"; };
+		DD49A6961E95A46B00A10CFA /* SpectacleMarginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpectacleMarginManager.h; path = Spectacle/Sources/SpectacleMarginManager.h; sourceTree = "<group>"; };
+		DD49A6971E95A55D00A10CFA /* SpectacleMarginStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpectacleMarginStorage.h; path = Spectacle/Sources/SpectacleMarginStorage.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +350,7 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DD49A68D1E9591D300A10CFA /* Margins */,
 				0747DAE81183AABB00F75DD2 /* Preferences */,
 				2DC8A0131B84E1AF00ABEBD5 /* Shortcuts */,
 				2DC8A0141B84E24500ABEBD5 /* Window Management */,
@@ -569,6 +583,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DD49A68D1E9591D300A10CFA /* Margins */ = {
+			isa = PBXGroup;
+			children = (
+				DD49A68E1E9598C100A10CFA /* SpectacleMargin.h */,
+				DD49A6911E959BCD00A10CFA /* SpectacleMargin.m */,
+				DD49A6941E95A45500A10CFA /* SpectacleMarginManager.m */,
+				DD49A6961E95A46B00A10CFA /* SpectacleMarginManager.h */,
+				DD49A6971E95A55D00A10CFA /* SpectacleMarginStorage.h */,
+				DD0ABFC11E95ED4E00B60210 /* SpectacleMarginJSONStorage.h */,
+				DD0ABFC21E95ED6200B60210 /* SpectacleMarginJSONStorage.m */,
+				DD0ABFC41E95FD9300B60210 /* SpectacleDefaultMarginHelpers.h */,
+				DD0ABFC51E95FDAA00B60210 /* SpectacleDefaultMarginHelpers.m */,
+			);
+			name = Margins;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -700,14 +730,17 @@
 				2D3A050D194956E100CD96E7 /* SpectacleAccessibilityElement.m in Sources */,
 				2D768E8D147ED51A00901E76 /* SpectacleAppDelegate.m in Sources */,
 				2DAC59F31BB23BE200C660ED /* SpectacleBestEffortWindowMover.m in Sources */,
+				DD0ABFC31E95ED6200B60210 /* SpectacleMarginJSONStorage.m in Sources */,
 				2D5A830F1CDC475B00EBE80A /* SpectacleDefaultShortcutHelpers.m in Sources */,
 				2D279ED416BB4A7800F6894A /* SpectacleHistory.m in Sources */,
 				2D8DA05D147E113D003BE1D3 /* SpectacleHistoryItem.m in Sources */,
 				2D8E2C641C7AAD5A0074129C /* SpectacleJavaScriptEnvironment.m in Sources */,
+				DD0ABFC61E95FDAA00B60210 /* SpectacleDefaultMarginHelpers.m in Sources */,
 				2DC8A0171B85097900ABEBD5 /* SpectacleLoginItemHelper.m in Sources */,
 				2D5A83091CDB020A00EBE80A /* SpectacleMigratingShortcutStorage.m in Sources */,
 				07838603148BD517001E7BD7 /* SpectaclePreferencesController.m in Sources */,
 				2DAC59F01BB238D900C660ED /* SpectacleQuantizedWindowMover.m in Sources */,
+				DD49A6951E95A45500A10CFA /* SpectacleMarginManager.m in Sources */,
 				2D1AE52515D715F400EAC5BD /* SpectacleRegisteredShortcutValidator.m in Sources */,
 				2D2629461CCECB9E009D1ED0 /* SpectacleScreenDetectionResult.m in Sources */,
 				2D4F3ED014A27B4500C29D11 /* SpectacleScreenDetector.m in Sources */,
@@ -726,6 +759,7 @@
 				2D0759A71C71746500A17E80 /* SpectacleWindowPositionCalculationRegistry.m in Sources */,
 				2D98D7311AE064B7007AD995 /* SpectacleWindowPositionCalculationResult.m in Sources */,
 				2D7CF9EB1C6FED50004DC708 /* SpectacleWindowPositionCalculator.m in Sources */,
+				DD49A6921E959BCD00A10CFA /* SpectacleMargin.m in Sources */,
 				2D8DA058147E113D003BE1D3 /* SpectacleWindowPositionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
