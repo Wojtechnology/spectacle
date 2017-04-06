@@ -51,49 +51,25 @@
   return _registeredMarginsByName[name];
 }
 
-- (CGRect)enforceMarginsOfRect:(CGRect)rect frameOfScreen:(CGRect)frameOfScreen
+- (CGRect)adjustRect:(CGRect)rect
 {
-  NSUInteger outerMarginSize = 0;
-  NSUInteger innerMarginSize = 0;
-  SpectacleMargin *outerMargin = [self marginForMarginName:@"OuterMargin"];
-  SpectacleMargin *innerMargin = [self marginForMarginName:@"InnerMargin"];
-  if (outerMargin) outerMarginSize = outerMargin.marginSize;
-  if (innerMargin) innerMarginSize = innerMargin.marginSize;
-  
-  CGFloat oldX = rect.origin.x;
-  if (isEdgeOfScreen(rect.origin.x, frameOfScreen.origin.x)) {
-    rect.origin.x = MAX(rect.origin.x, frameOfScreen.origin.x + outerMarginSize);
-  } else {
-    rect.origin.x += innerMarginSize;
-  }
-  rect.size.width -= rect.origin.x - oldX;
-  
-  CGFloat oldY = rect.origin.y;
-  if (isEdgeOfScreen(rect.origin.y, frameOfScreen.origin.y)) {
-    rect.origin.y = MAX(rect.origin.y, frameOfScreen.origin.y + outerMarginSize);
-  } else {
-    rect.origin.y += innerMarginSize;
-  }
-  rect.size.height -= rect.origin.y - oldY;
-  
-  if (isEdgeOfScreen(CGRectGetMaxX(rect), CGRectGetMaxX(frameOfScreen))) {
-    rect.size.width = MIN(rect.size.width, CGRectGetMaxX(frameOfScreen) - rect.origin.x - outerMarginSize);
-  } else {
-    rect.size.width -= innerMarginSize;
-  }
-  
-  if (isEdgeOfScreen(CGRectGetMaxY(rect), CGRectGetMaxY(frameOfScreen))) {
-    rect.size.height = MIN(rect.size.height, CGRectGetMaxY(frameOfScreen) - rect.origin.y - outerMarginSize);
-  } else {
-    rect.size.height -= innerMarginSize;
-  }
-  
-  return rect;
+  return [self adjustRect:rect withMarginName:@"InnerMargin"];
 }
 
-static BOOL isEdgeOfScreen(CGFloat rectCoord, CGFloat screenCoord)
+- (CGRect)adjustFrameOfScreen:(CGRect)frameOfScreen
 {
-  return fabs(rectCoord - screenCoord) < 5.0;
+  return [self adjustRect:frameOfScreen withMarginName:@"OuterMargin"];
+}
+
+- (CGRect)adjustRect:(CGRect)rect withMarginName:(NSString *)name
+{  NSUInteger marginSize = 0;
+  SpectacleMargin *margin = [self marginForMarginName:name];
+  if (margin) marginSize = margin.marginSize;
+  rect.origin.x += marginSize;
+  rect.origin.y += marginSize;
+  rect.size.width -= 2 * marginSize;
+  rect.size.height -= 2 * marginSize;
+  return rect;
 }
 
 @end

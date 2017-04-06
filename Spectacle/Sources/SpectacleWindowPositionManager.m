@@ -77,6 +77,8 @@
     frameOfDestinationScreen = NSRectToCGRect([screenDetectionResult.destinationScreen frame]);
     visibleFrameOfDestinationScreen = NSRectToCGRect([screenDetectionResult.destinationScreen visibleFrame]);
     visibleFrameOfSourceScreen = NSRectToCGRect([screenDetectionResult.sourceScreen visibleFrame]);
+    
+    visibleFrameOfDestinationScreen = [_marginManager adjustFrameOfScreen:visibleFrameOfDestinationScreen];
   }
   CGRect frontmostWindowRect = [frontmostWindowElement rectOfElement];
   CGRect previousFrontmostWindowRect = CGRectNull;
@@ -111,8 +113,7 @@
     _failureFeedback();
     return;
   }
-  frontmostWindowRect = [_marginManager enforceMarginsOfRect:frontmostWindowRect
-                                               frameOfScreen:frameOfDestinationScreen];
+  frontmostWindowRect = [_marginManager adjustRect:frontmostWindowRect];
   frontmostWindowRect = [SpectacleAccessibilityElement normalizeCoordinatesOfRect:frontmostWindowRect
                                                                     frameOfScreen:frameOfDestinationScreen];
   historyItem = [SpectacleHistoryItem historyItemFromAccessibilityElement:frontmostWindowElement

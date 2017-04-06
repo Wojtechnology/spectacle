@@ -19,6 +19,7 @@ SPECTACLE_INIT_AND_NEW_UNAVAILABLE
 - (NSArray<SpectacleMargin *> *)margins;
 - (SpectacleMargin *)marginForMarginName:(NSString *)name;
 
-- (CGRect)enforceMarginsOfRect:(CGRect)rect frameOfScreen:(CGRect)frameOfScreen;
+- (CGRect)adjustRect:(CGRect)rect;
+- (CGRect)adjustFrameOfScreen:(CGRect)frameOfScreen;
 
 @end
